@@ -298,13 +298,12 @@ def octile(a, b) -> float:
 def create_astar_stepper():
     open = []
     gScore = {f"{start[0]},{start[1]}": 0}
-    fScore = {f"{start[0]},{start[1]}": octile(start, goal)}
     came = {}
     closed = set()
-    heapq.heappush(open, (fScore[f"{start[0]},{start[1]}"], 0, start[0], start[1]))
+    heapq.heappush(open, (octile(start, goal), 0, start[0], start[1]))
 
     def step():
-        nonlocal open, gScore, fScore, came, closed
+        nonlocal open, gScore, came, closed
         if not open:
             return {"done": True, "open": [], "closed": [], "path": []}
         f, cg, x, y = heapq.heappop(open)
@@ -434,7 +433,7 @@ def create_jps_stepper():
             nk = f"{sx},{sy}"
             ng = gScore[ck] + addg
             #################################
-            # TODO: 更新 gScore, came, open
+            # TODO: 更新 fScore, gScore, came, open
             #################################
         return {
             "done": False,
